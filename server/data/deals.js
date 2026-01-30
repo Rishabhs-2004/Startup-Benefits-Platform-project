@@ -1,0 +1,51 @@
+const deals = [
+    {
+        title: 'AWS Activate',
+        description: '$1,000 in AWS credits for 2 years, valid for new users. Great for hosting your startup infrastructure.',
+        category: 'Development',
+        discount: '$1000 Credits',
+        partnerName: 'Amazon Web Services',
+        logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg',
+        redemptionLink: 'https://aws.amazon.com/activate/',
+        featured: true,
+    },
+    {
+        title: 'HubSpot for Startups',
+        description: 'Get up to 90% off HubSpot professional software. Manage your marketing, sales, and service in one place.',
+        category: 'Marketing',
+        discount: '90% OFF',
+        partnerName: 'HubSpot',
+        logoUrl: 'https://cdn.worldvectorlogo.com/logos/hubspot-1.svg',
+        redemptionLink: 'https://www.hubspot.com/startups',
+        featured: true,
+    },
+    {
+        title: 'Notion Plus',
+        description: '6 months free of Notion Plus with AI. The connected workspace for your docs, projects, and wiki.',
+        category: 'Productivity',
+        discount: '6 Months Free',
+        partnerName: 'Notion',
+        logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/45/Notion_app_logo.png',
+        redemptionLink: 'https://www.notion.so/startups',
+    },
+    {
+        title: 'Stripe Atlas',
+        description: 'Discount on incorporating your company. Form your LLC or C Corp in days.',
+        category: 'Finance',
+        discount: '$250 Credits',
+        partnerName: 'Stripe',
+        logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/b/ba/Stripe_Logo%2C_revised_2016.svg',
+        redemptionLink: 'https://stripe.com/atlas',
+    },
+    {
+        title: 'Figma Professional',
+        description: 'First year free for the Figma Professional plan. Design, prototype, and gather feedback on your product.',
+        category: 'Design',
+        discount: 'Free 1 Year',
+        partnerName: 'Figma',
+        logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg',
+        redemptionLink: 'https://www.figma.com/education/',
+    },
+];
+
+module.exports = deals;
