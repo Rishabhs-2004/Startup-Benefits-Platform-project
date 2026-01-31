@@ -5,7 +5,7 @@ services:
     env: node
     plan: free
     repo: https://github.com/Rishabhs-2004/Startup-Benefits-Platform-project 
-    region: singapore # Optional
+    region: singapore
     buildCommand: cd server && npm install
     startCommand: cd server && npm start
     envVars:
@@ -16,7 +16,7 @@ services:
       - key: JWT_SECRET
         generateValue: true
 
-  # Frontend Service (Switched to Web Service to avoid "Static" type error)
+  # Frontend Service
   - type: web
     name: startup-benefits-frontend
     env: node
@@ -29,4 +29,4 @@ services:
         fromService:
           type: web
           name: startup-benefits-backend
-          property: url
+          property: host # Changed from 'url' to 'host'

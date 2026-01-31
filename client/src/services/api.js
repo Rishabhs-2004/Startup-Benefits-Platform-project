@@ -1,6 +1,13 @@
 import axios from 'axios';
 
-const API_URL = (import.meta.env.VITE_API_URL || 'http://localhost:5000') + '/api';
+let apiBase = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
+// If protocol is missing (Render provided just the host), prepend https://
+if (!apiBase.match(/^https?:\/\//)) {
+    apiBase = `https://${apiBase}`;
+}
+
+const API_URL = `${apiBase}/api`;
 
 const api = axios.create({
     baseURL: API_URL,
