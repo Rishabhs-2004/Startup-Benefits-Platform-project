@@ -5,32 +5,28 @@ services:
     env: node
     plan: free
     repo: https://github.com/Rishabhs-2004/Startup-Benefits-Platform-project 
-    region: singapore # Optional, but good to specify or leave default
+    region: singapore # Optional
     buildCommand: cd server && npm install
     startCommand: cd server && npm start
     envVars:
       - key: NODE_ENV
         value: production
       - key: MONGO_URI
-        sync: false # User must provide this value in Render Dashboard
+        sync: false # User must provide this value
       - key: JWT_SECRET
         generateValue: true
 
-  # Frontend Service
-  - type: static
+  # Frontend Service (Switched to Web Service to avoid "Static" type error)
+  - type: web
     name: startup-benefits-frontend
-    env: static
+    env: node
     plan: free
     repo: https://github.com/Rishabhs-2004/Startup-Benefits-Platform-project
     buildCommand: cd client && npm install && npm run build
-    publishDir: client/dist
+    startCommand: cd client && npx serve -s dist -l $PORT
     envVars:
       - key: VITE_API_URL
         fromService:
           type: web
           name: startup-benefits-backend
           property: url
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
