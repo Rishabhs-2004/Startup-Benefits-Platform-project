@@ -4,7 +4,7 @@ services:
     name: startup-benefits-backend
     env: node
     plan: free
-    repo: https://github.com/Rishabhs-2004/Startup-Benefits-Platform-project 
+    repo: https://github.com/Rishabhs-2004/Startup-Benefits-Platform-project
     region: singapore
     buildCommand: cd server && npm install
     startCommand: cd server && npm start
@@ -29,4 +29,4 @@ services:
         fromService:
           type: web
           name: startup-benefits-backend
-          property: host # Changed from 'url' to 'host'
+          property: host
