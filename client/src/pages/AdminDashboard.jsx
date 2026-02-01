@@ -23,6 +23,7 @@ const AdminDashboard = () => {
     });
 
     useEffect(() => {
+        document.title = "Admin Panel | Startup Benefits";
         fetchDeals();
     }, []);
 
@@ -110,8 +111,8 @@ const AdminDashboard = () => {
                 {loading ? (
                     <div className="flex justify-center"><Loader className="animate-spin text-primary-500" /></div>
                 ) : (
-                    <div className="bg-dark-card border border-white/5 rounded-xl overflow-hidden">
-                        <table className="w-full text-left">
+                    <div className="bg-dark-card border border-white/5 rounded-xl overflow-x-auto">
+                        <table className="w-full text-left min-w-[600px] md:min-w-full">
                             <thead className="bg-white/5 text-gray-400 border-b border-white/5">
                                 <tr>
                                     <th className="p-4">Deal</th>
@@ -123,12 +124,12 @@ const AdminDashboard = () => {
                             <tbody className="divide-y divide-white/5">
                                 {deals.map(deal => (
                                     <tr key={deal._id} className="hover:bg-white/5 transition-colors">
-                                        <td className="p-4">
-                                            <div className="font-bold text-white">{deal.title}</div>
-                                            <div className="text-sm text-gray-500">{deal.partnerName}</div>
+                                        <td className="p-4 min-w-[200px]">
+                                            <div className="font-bold text-white line-clamp-1">{deal.title}</div>
+                                            <div className="text-sm text-gray-500 line-clamp-1">{deal.partnerName}</div>
                                         </td>
                                         <td className="p-4 text-gray-300">{deal.category}</td>
-                                        <td className="p-4 text-primary-400 font-medium">{deal.discount}</td>
+                                        <td className="p-4 text-primary-400 font-medium whitespace-nowrap">{deal.discount}</td>
                                         <td className="p-4">
                                             <div className="flex gap-2">
                                                 <button onClick={() => handleEdit(deal)} className="p-2 text-blue-400 hover:bg-blue-400/10 rounded-lg">

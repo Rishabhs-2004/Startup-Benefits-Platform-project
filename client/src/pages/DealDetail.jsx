@@ -10,6 +10,7 @@ const DealDetail = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        document.title = "Deal Details | Startup Benefits";
         const fetchDeal = async () => {
             try {
                 const data = await dealService.getDealById(id);
@@ -41,9 +42,9 @@ const DealDetail = () => {
                             <img src={deal.logoUrl} alt={deal.partnerName} className="w-full h-full object-contain" />
                         </div>
                         <div className="flex-1">
-                            <div className="flex items-center gap-4 mb-4">
-                                <h1 className="text-4xl font-bold text-white">{deal.title}</h1>
-                                <span className="px-3 py-1 rounded-full bg-white/10 text-sm font-medium text-gray-300 border border-white/10">
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mb-4">
+                                <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight">{deal.title}</h1>
+                                <span className="w-fit px-3 py-1 rounded-full bg-white/10 text-xs sm:text-sm font-medium text-gray-300 border border-white/10">
                                     {deal.category}
                                 </span>
                             </div>

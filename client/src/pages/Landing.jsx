@@ -2,8 +2,13 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Rocket, Shield, Zap } from 'lucide-react';
 import Navbar from '../components/Navbar';
+import { useEffect } from 'react'; // Added useEffect import
 
 const Landing = () => {
+    useEffect(() => {
+        document.title = "Startup Benefits | Home";
+    }, []);
+
     return (
         <div className="min-h-screen bg-dark-bg">
             <Navbar />
@@ -17,7 +22,7 @@ const Landing = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5 }}
-                        className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6"
+                        className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight mb-6"
                     >
                         Supercharge Your <br />
                         <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">
@@ -38,12 +43,12 @@ const Landing = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.4 }}
-                        className="mt-8 flex justify-center gap-4"
+                        className="mt-8 flex flex-col sm:flex-row justify-center gap-4 px-4 sm:px-0"
                     >
-                        <Link to="/signup" className="px-8 py-3 rounded-full bg-primary-500 hover:bg-primary-600 text-white font-semibold text-lg hover:shadow-lg hover:shadow-primary-500/25 transition-all">
+                        <Link to="/signup" className="px-8 py-3 rounded-full bg-primary-500 hover:bg-primary-600 text-white font-semibold text-lg hover:shadow-lg hover:shadow-primary-500/25 transition-all text-center">
                             Get Exclusive Access
                         </Link>
-                        <Link to="/deals" className="px-8 py-3 rounded-full bg-white/5 hover:bg-white/10 text-white border border-white/10 font-semibold text-lg transition-all">
+                        <Link to="/deals" className="px-8 py-3 rounded-full bg-white/5 hover:bg-white/10 text-white border border-white/10 font-semibold text-lg transition-all text-center">
                             Browse Deals
                         </Link>
                     </motion.div>

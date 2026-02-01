@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-let apiBase = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+let apiBase = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
 // If protocol is missing (Render provided just the host), prepend https://
 if (!apiBase.match(/^https?:\/\//)) {
