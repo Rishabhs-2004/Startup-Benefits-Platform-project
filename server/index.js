@@ -70,6 +70,15 @@ app.get('/', (req, res) => {
     res.send('API is running...');
 });
 
+app.get('/api/test', (req, res) => {
+    res.json({
+        message: 'Backend is working!',
+        dbStatus: mongoose.connection.readyState === 1 ? 'Connected' : 'Connecting/Disconnected',
+        timestamp: new Date()
+    });
+});
+
+
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/deals', require('./routes/dealRoutes'));
 
