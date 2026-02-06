@@ -4,6 +4,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const connectDB = require('./config/db');
+const keepAlive = require('./utils/keepAlive');
 
 dotenv.config();
 
@@ -31,4 +32,9 @@ const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
+    // Start keep-alive ping if RENDER_URL is provided
+    if (process.env.RENDER_URL) {
+        keepAlive(process.env.RENDER_URL);
+    }
 });
+
