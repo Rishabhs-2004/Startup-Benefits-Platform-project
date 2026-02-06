@@ -1,5 +1,7 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
@@ -14,9 +16,17 @@ dotenv.config();
 
 connectDB();
 
-// Auto-seed function
+// Auto-seed function with connection wait
 const autoSeed = async () => {
     try {
+        // Wait for mongoose to be connected (status 1)
+        let connectionWait = 0;
+        while (mongoose.connection.readyState !== 1 && connectionWait < 10) {
+            console.log('Waiting for database connection before seeding...');
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            connectionWait++;
+        }
+
         const adminEmail = 'admin@gmail.com';
         const adminExists = await User.findOne({ email: adminEmail });
 
@@ -24,6 +34,8 @@ const autoSeed = async () => {
             console.log('Admin user not found, seeding admin...');
             const adminData = users.find(u => u.email === adminEmail);
             if (adminData) {
+                // Remove password hashing from manual creation if needed, 
+                // but User.create triggers the pre-save hook which handles it.
                 await User.create(adminData);
                 console.log('Admin user created successfully!');
             }
@@ -39,7 +51,10 @@ const autoSeed = async () => {
         console.error('Auto-seeding failed:', error.message);
     }
 };
-autoSeed();
+
+// Start seeding after a short delay to ensure DB is connecting
+setTimeout(autoSeed, 2000);
+
 
 
 
