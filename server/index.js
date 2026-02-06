@@ -17,18 +17,30 @@ connectDB();
 // Auto-seed function
 const autoSeed = async () => {
     try {
-        const userCount = await User.countDocuments();
-        if (userCount === 0) {
-            console.log('No users found, seeding data...');
-            await User.create(users);
-            await Deal.create(deals);
-            console.log('Database seeded successfully!');
+        const adminEmail = 'admin@gmail.com';
+        const adminExists = await User.findOne({ email: adminEmail });
+
+        if (!adminExists) {
+            console.log('Admin user not found, seeding admin...');
+            const adminData = users.find(u => u.email === adminEmail);
+            if (adminData) {
+                await User.create(adminData);
+                console.log('Admin user created successfully!');
+            }
+        }
+
+        // Also seed deals if none exist
+        const dealCount = await Deal.countDocuments();
+        if (dealCount === 0) {
+            await Deal.insertMany(deals);
+            console.log('Deals seeded successfully!');
         }
     } catch (error) {
         console.error('Auto-seeding failed:', error.message);
     }
 };
 autoSeed();
+
 
 
 const app = express();
