@@ -5,10 +5,31 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const connectDB = require('./config/db');
 const keepAlive = require('./utils/keepAlive');
+const User = require('./models/User');
+const users = require('./data/users');
+const Deal = require('./models/Deal');
+const deals = require('./data/deals');
 
 dotenv.config();
 
 connectDB();
+
+// Auto-seed function
+const autoSeed = async () => {
+    try {
+        const userCount = await User.countDocuments();
+        if (userCount === 0) {
+            console.log('No users found, seeding data...');
+            await User.create(users);
+            await Deal.create(deals);
+            console.log('Database seeded successfully!');
+        }
+    } catch (error) {
+        console.error('Auto-seeding failed:', error.message);
+    }
+};
+autoSeed();
+
 
 const app = express();
 
