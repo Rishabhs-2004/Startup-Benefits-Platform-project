@@ -1,7 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
@@ -14,50 +13,6 @@ const deals = require('./data/deals');
 
 dotenv.config();
 
-connectDB();
-
-// Auto-seed function with connection wait
-const autoSeed = async () => {
-    try {
-        // Wait for mongoose to be connected (status 1)
-        let connectionWait = 0;
-        while (mongoose.connection.readyState !== 1 && connectionWait < 10) {
-            console.log('Waiting for database connection before seeding...');
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            connectionWait++;
-        }
-
-        const adminEmail = 'admin@gmail.com';
-        const adminExists = await User.findOne({ email: adminEmail });
-
-        if (!adminExists) {
-            console.log('Admin user not found, seeding admin...');
-            const adminData = users.find(u => u.email === adminEmail);
-            if (adminData) {
-                // Remove password hashing from manual creation if needed, 
-                // but User.create triggers the pre-save hook which handles it.
-                await User.create(adminData);
-                console.log('Admin user created successfully!');
-            }
-        }
-
-        // Also seed deals if none exist
-        const dealCount = await Deal.countDocuments();
-        if (dealCount === 0) {
-            await Deal.insertMany(deals);
-            console.log('Deals seeded successfully!');
-        }
-    } catch (error) {
-        console.error('Auto-seeding failed:', error.message);
-    }
-};
-
-// Start seeding after a short delay to ensure DB is connecting
-setTimeout(autoSeed, 2000);
-
-
-
-
 const app = express();
 
 app.use(express.json());
@@ -65,7 +20,7 @@ app.use(cors());
 app.use(helmet());
 app.use(morgan('dev'));
 
-// Routes Placeholder
+// Routes
 app.get('/', (req, res) => {
     res.send('API is running...');
 });
@@ -74,10 +29,9 @@ app.get('/api/test', (req, res) => {
     res.json({
         message: 'Backend is working!',
         dbStatus: mongoose.connection.readyState === 1 ? 'Connected' : 'Connecting/Disconnected',
-        timestamp: new Date()
+        uptime: process.uptime()
     });
 });
-
 
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/deals', require('./routes/dealRoutes'));
@@ -87,15 +41,34 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-    // Start keep-alive ping if URLs are provided
-    if (process.env.RENDER_URL) {
-        keepAlive(process.env.RENDER_URL);
-    }
-    if (process.env.FRONTEND_URL) {
-        keepAlive(process.env.FRONTEND_URL);
-    }
+// Connect to DB then start server
+connectDB().then(() => {
+    app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
 
+        // Auto-seeding logic
+        const autoSeed = async () => {
+            try {
+                const adminEmail = 'admin@gmail.com';
+                const adminExists = await User.findOne({ email: adminEmail });
+                if (!adminExists) {
+                    console.log('Seeding admin user...');
+                    const adminData = users.find(u => u.email === adminEmail);
+                    if (adminData) await User.create(adminData);
+                }
+                const dealCount = await Deal.countDocuments();
+                if (dealCount === 0) await Deal.insertMany(deals);
+            } catch (err) {
+                console.error('Seeding error:', err.message);
+            }
+        };
+        autoSeed();
+
+        // Keep-alive
+        if (process.env.RENDER_URL) keepAlive(process.env.RENDER_URL);
+        if (process.env.FRONTEND_URL) keepAlive(process.env.FRONTEND_URL);
+    });
+}).catch(err => {
+    console.error('Failed to connect to MongoDB', err);
+    process.exit(1);
 });
-
