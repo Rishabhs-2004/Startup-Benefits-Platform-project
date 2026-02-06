@@ -15,6 +15,17 @@ services:
         sync: false # User must provide this value
       - key: JWT_SECRET
         generateValue: true
+      - key: RENDER_URL
+        fromService:
+          type: web
+          name: startup-benefits-backend
+          property: host
+      - key: FRONTEND_URL
+        fromService:
+          type: web
+          name: startup-benefits-frontend
+          property: host
+
 
   # Frontend Service
   - type: web

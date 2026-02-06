@@ -32,9 +32,13 @@ const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
-    // Start keep-alive ping if RENDER_URL is provided
+    // Start keep-alive ping if URLs are provided
     if (process.env.RENDER_URL) {
         keepAlive(process.env.RENDER_URL);
     }
+    if (process.env.FRONTEND_URL) {
+        keepAlive(process.env.FRONTEND_URL);
+    }
+
 });
 
