@@ -22,6 +22,35 @@ app.use(morgan('dev'));
 // Connect to DB
 connectDB();
 
+// Auto-seeding logic
+const autoSeed = async () => {
+    try {
+        const adminEmail = 'admin@gmail.com';
+        const adminData = users.find(u => u.email === adminEmail);
+
+        const existingAdmin = await User.findOne({ email: adminEmail });
+
+        if (!existingAdmin) {
+            console.log('Creating admin user...');
+            await User.create(adminData);
+        } else {
+            // Update password to 1122 to be sure
+            existingAdmin.password = '1122';
+            await existingAdmin.save();
+            console.log('Admin password updated to 1122');
+        }
+
+        const dealCount = await Deal.countDocuments();
+        if (dealCount === 0) {
+            await Deal.insertMany(deals);
+            console.log('Deals seeded');
+        }
+    } catch (err) {
+        console.error('Seeding error:', err);
+    }
+};
+autoSeed();
+
 // Routes
 app.get('/', (req, res) => {
     res.send('API is running...');
