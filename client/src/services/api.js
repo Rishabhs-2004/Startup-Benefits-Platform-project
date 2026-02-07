@@ -1,6 +1,12 @@
 import axios from 'axios';
 
-const apiBase = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+let apiBase = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+
+// Remove trailing slash if present
+if (apiBase.endsWith('/')) {
+    apiBase = apiBase.slice(0, -1);
+}
+
 const API_URL = `${apiBase}/api`;
 
 const api = axios.create({
