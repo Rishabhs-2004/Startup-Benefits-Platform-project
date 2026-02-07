@@ -1,5 +1,7 @@
 # Startup Benefits & Deals Platform
 
+**🚀 [Live Demo](https://startup-benefits-platform-project.vercel.app)**
+
 A premium full-stack MERN application connecting early-stage startups with exclusive deals on SaaS tools and services.
 
 ## 🚀 Features
