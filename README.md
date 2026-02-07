@@ -56,7 +56,7 @@ JWT_SECRET=your_super_secret_key
 ```bash
 node seeder.js
 ```
-*Creates Admin user: `admin@example.com` / `password123`*
+*Creates Admin user: `admin@gmail.com` / `1122`*
 
 Start the Server:
 ```bash
