@@ -89,3 +89,27 @@ npm run dev
 - **Glassmorphism Cards**: Modern, translucent card designs.
 - **Interactive States**: Hover scales, button glowing effects.
 - **Dark Mode**: Default sleek dark theme optimized for developers.
+
+## 🚀 24/7 Deployment (Free)
+
+To keep this project live 24/7 without the server sleeping, follow these steps:
+
+### 1. Backend (Koyeb)
+- **Platform**: [Koyeb](https://www.koyeb.com/)
+- **Setup**:
+  - Connect GitHub.
+  - Work Directory: `server`
+  - Build Command: `npm install`
+  - Run Command: `node index.js`
+  - **Env Vars**:
+    - `PORT`: `8000`
+    - `MONGO_URI`: Your MongoDB Atlas URI
+    - `JWT_SECRET`: Your secret key
+
+### 2. Frontend (Vercel)
+- **Platform**: [Vercel](https://vercel.com/)
+- **Setup**:
+  - Connect GitHub.
+  - Root Directory: `client`
+  - **Env Vars**:
+    - `VITE_API_URL`: Your Koyeb Backend URL (e.g., `https://my-app.koyeb.app`)
