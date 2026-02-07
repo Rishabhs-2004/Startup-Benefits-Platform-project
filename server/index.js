@@ -19,26 +19,8 @@ app.use(cors());
 app.use(helmet());
 app.use(morgan('dev'));
 
-// Connect to DB (Vercel will reuse connection)
+// Connect to DB
 connectDB();
-
-// Auto-seeding logic
-const autoSeed = async () => {
-    try {
-        const adminEmail = 'admin@gmail.com';
-        const adminExists = await User.findOne({ email: adminEmail });
-        if (!adminExists) {
-            console.log('Seeding admin user...');
-            const adminData = users.find(u => u.email === adminEmail);
-            if (adminData) await User.create(adminData);
-        }
-        const dealCount = await Deal.countDocuments();
-        if (dealCount === 0) await Deal.insertMany(deals);
-    } catch (err) {
-        console.log('Seeding check done');
-    }
-};
-autoSeed();
 
 // Routes
 app.get('/', (req, res) => {
@@ -61,11 +43,8 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
-// Only listen if not running on Vercel
-if (process.env.NODE_ENV !== 'production') {
-    app.listen(PORT, () => {
-        console.log(`Server running locally on port ${PORT}`);
-    });
-}
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
 
 module.exports = app;
