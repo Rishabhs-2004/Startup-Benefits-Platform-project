@@ -66,6 +66,7 @@ app.get('/api/test', (req, res) => {
 
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/deals', require('./routes/dealRoutes'));
+app.use('/api/claims', require('./routes/claimRoutes'));
 
 const { errorHandler } = require('./middleware/errorMiddleware');
 app.use(errorHandler);

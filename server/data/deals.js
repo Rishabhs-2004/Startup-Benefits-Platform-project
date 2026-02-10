@@ -8,6 +8,8 @@ const deals = [
         logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg',
         redemptionLink: 'https://aws.amazon.com/activate/',
         featured: true,
+        accessLevel: 'public',
+        eligibilityConditions: 'New AWS accounts only.'
     },
     {
         title: 'HubSpot for Startups',
@@ -18,6 +20,8 @@ const deals = [
         logoUrl: 'https://cdn.worldvectorlogo.com/logos/hubspot-1.svg',
         redemptionLink: 'https://www.hubspot.com/startups',
         featured: true,
+        accessLevel: 'restricted',
+        eligibilityConditions: 'Must have raised less than $2M in funding.'
     },
     {
         title: 'Notion Plus',
@@ -27,6 +31,8 @@ const deals = [
         partnerName: 'Notion',
         logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/45/Notion_app_logo.png',
         redemptionLink: 'https://www.notion.so/startups',
+        accessLevel: 'public',
+        eligibilityConditions: 'Valid for teams of up to 50 members.'
     },
     {
         title: 'Stripe Atlas',
@@ -36,6 +42,8 @@ const deals = [
         partnerName: 'Stripe',
         logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/b/ba/Stripe_Logo%2C_revised_2016.svg',
         redemptionLink: 'https://stripe.com/atlas',
+        accessLevel: 'restricted',
+        eligibilityConditions: 'For new business entities only.'
     },
     {
         title: 'Figma Professional',
@@ -45,6 +53,8 @@ const deals = [
         partnerName: 'Figma',
         logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg',
         redemptionLink: 'https://www.figma.com/education/',
+        accessLevel: 'public',
+        eligibilityConditions: 'Educational and early-stage startup usage.'
     },
 ];
 

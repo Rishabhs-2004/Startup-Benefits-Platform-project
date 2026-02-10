@@ -1,5 +1,6 @@
 node_modules/
 .env
+.env.local
 .DS_Store
 dist/
 build/
@@ -7,3 +8,7 @@ npm-debug.log
 yarn-error.log
 coverage/
 .vscode/
+.next/
+/client/.next/
+/client/node_modules/
+/server/node_modules/

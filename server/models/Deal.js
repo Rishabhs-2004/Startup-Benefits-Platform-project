@@ -30,6 +30,15 @@ const dealSchema = new mongoose.Schema({
         type: String,
         required: false,
     },
+    accessLevel: {
+        type: String,
+        enum: ['public', 'restricted'],
+        default: 'public',
+    },
+    eligibilityConditions: {
+        type: String,
+        default: 'All early-stage startups are eligible.',
+    },
     featured: {
         type: Boolean,
         default: false,
