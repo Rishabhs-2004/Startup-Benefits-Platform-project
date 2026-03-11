@@ -26,7 +26,8 @@ export default function RegisterPage() {
             const response = await api.post('/auth/register', formData);
             login(response.data.token, response.data.user);
         } catch (err: any) {
-            setError(err.response?.data?.message || 'Registration failed. Try again.');
+            const message = err.response?.data?.message || err.message || 'Registration failed. Try again.';
+            setError(message);
         } finally {
             setLoading(false);
         }
